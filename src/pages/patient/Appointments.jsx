@@ -16,7 +16,7 @@ function Skeleton() {
 }
 
 export default function Appointments() {
-  const { user, profile } = useAuth()
+  const { user } = useAuth()
   const [tab, setTab] = useState('upcoming')
   const [appointments, setAppointments] = useState([])
   const [loading, setLoading] = useState(true)
@@ -103,12 +103,12 @@ export default function Appointments() {
 
   return (
     <>
-      <div className="page-header" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+      <div className="page-header with-action">
         <div>
           <h2>Appointments</h2>
           <p>Manage your medical appointments</p>
         </div>
-        <button className="btn-primary" onClick={() => setShowModal(true)}>+ Book Appointment</button>
+        <button className="btn-primary" onClick={() => setShowModal(true)}>Book Appointment</button>
       </div>
 
       <div className="tabs">
@@ -144,7 +144,7 @@ export default function Appointments() {
                     <span className="appt-time">{formatTime(a.appointment_time)}</span>
                     {a.status === 'PENDING' && (
                       <button
-                        className="btn-danger" style={{ fontSize: '0.7rem', padding: '0.2rem 0.6rem' }}
+                        className="btn-danger btn-sm"
                         onClick={() => handleCancel(a.id)} disabled={cancelling === a.id}
                       >
                         {cancelling === a.id ? '…' : 'Cancel'}

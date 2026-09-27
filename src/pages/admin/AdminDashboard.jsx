@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { supabase } from '../../lib/supabase'
-import { formatDate, formatTime, timeAgo } from '../../lib/utils'
+import { formatDate, timeAgo } from '../../lib/utils'
 
 function StatCard({ label, value, sub, color = 'blue' }) {
   return (
@@ -66,10 +66,11 @@ export default function AdminDashboard() {
       ) : (
         <>
           <div className="stats-grid">
-            <StatCard label="Total Patients" value={stats.patients} sub="Registered" color="blue" />
-            <StatCard label="Today's Appointments" value={stats.todayAppts} sub={new Date().toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' })} color="green" />
+            <StatCard label="Total Patients" value={stats.patients} sub="Registered" color="green" />
+            <StatCard label="Today's Appointments" value={stats.todayAppts} sub={new Date().toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' })} color="blue" />
             <StatCard label="Pending Appointments" value={stats.pendingAppts} sub="Awaiting confirmation" color="amber" />
-            <StatCard label="Active Emergency" value={stats.pendingAmb} sub="Requested ambulances" color="red" />
+            <StatCard label="Pending Ambulance" value={stats.pendingAmb} sub="Requested ambulances" color="red" />
+            <StatCard label="Blood Inventory" value={bloodSummary.reduce((s, [, u]) => s + u, 0)} sub="Units across banks" color="teal" />
           </div>
 
           <div className="dashboard-grid">

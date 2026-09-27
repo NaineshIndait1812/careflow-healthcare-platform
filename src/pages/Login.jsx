@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import BrandMark from '../components/BrandMark'
 
 export default function Login() {
   const { signIn, isAuthenticated, isAdmin } = useAuth()
@@ -10,7 +11,6 @@ export default function Login() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // If already logged in, redirect — use <Navigate> not navigate() in render
   if (isAuthenticated) {
     return <Navigate to={isAdmin ? '/admin' : '/patient'} replace />
   }
@@ -50,52 +50,69 @@ export default function Login() {
         setError('Unable to sign in. Please check your credentials and try again.')
       }
     }
-    // onAuthStateChange will handle navigation via App routing
   }
 
   return (
     <div className="auth-page">
-      <div className="auth-card">
-        <div className="auth-header">
-          <h1>CareFlow</h1>
-          <p className="auth-subtitle">Healthcare Management Platform</p>
+      <aside className="auth-brand-panel">
+        <div className="auth-brand-inner">
+          <div className="auth-logo-row">
+            <BrandMark size={44} />
+            <h1>Care<span>Flow</span></h1>
+          </div>
+          <h2>Connected Healthcare. Simplified.</h2>
+          <p>A professional platform for appointments, emergency coordination, blood availability, and facility access.</p>
+          <ul className="auth-brand-points">
+            <li><span className="auth-point-dot" /> Secure patient and admin access</li>
+            <li><span className="auth-point-dot" /> Appointments and facility directory</li>
+            <li><span className="auth-point-dot" /> Emergency ambulance coordination</li>
+          </ul>
         </div>
+      </aside>
 
-        <h2>Sign In</h2>
+      <div className="auth-form-panel">
+        <div className="auth-card">
+          <div className="auth-header mobile-only">
+            <h1>Care<span>Flow</span></h1>
+            <p className="auth-subtitle">Healthcare Management Platform</p>
+          </div>
 
-        {error && <div className="auth-error">{error}</div>}
+          <h2>Sign In</h2>
 
-        <form onSubmit={handleSubmit} className="auth-form">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
-            autoComplete="email"
-            required
-          />
+          {error && <div className="auth-error">{error}</div>}
 
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            autoComplete="current-password"
-            required
-          />
+          <form onSubmit={handleSubmit} className="auth-form">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              autoComplete="email"
+              required
+            />
 
-          <button type="submit" className="auth-btn" disabled={loading}>
-            {loading ? 'Signing in…' : 'Sign In'}
-          </button>
-        </form>
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              autoComplete="current-password"
+              required
+            />
 
-        <p className="auth-footer">
-          Don't have an account? <Link to="/register">Create one</Link>
-        </p>
+            <button type="submit" className="auth-btn" disabled={loading}>
+              {loading ? 'Signing in…' : 'Sign In'}
+            </button>
+          </form>
+
+          <p className="auth-footer">
+            Don't have an account? <Link to="/register">Create one</Link>
+          </p>
+        </div>
       </div>
     </div>
   )

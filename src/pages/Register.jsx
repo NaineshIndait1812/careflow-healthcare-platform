@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import BrandMark from '../components/BrandMark'
 
 const BLOOD_GROUPS = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
 
@@ -19,7 +20,6 @@ export default function Register() {
   const [success, setSuccess] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // If already logged in, redirect — use <Navigate> not navigate() in render
   if (isAuthenticated) {
     return <Navigate to={isAdmin ? '/admin' : '/patient'} replace />
   }
@@ -84,105 +84,121 @@ export default function Register() {
       return
     }
 
-    // If email confirmation is required, user won't have a session yet
     if (data?.user && !data?.session) {
       setSuccess('Registration successful! Please check your email to verify your account.')
     }
-    // If no confirmation needed, onAuthStateChange handles redirect
   }
 
   return (
     <div className="auth-page">
-      <div className="auth-card">
-        <div className="auth-header">
-          <h1>CareFlow</h1>
-          <p className="auth-subtitle">Healthcare Management Platform</p>
+      <aside className="auth-brand-panel">
+        <div className="auth-brand-inner">
+          <div className="auth-logo-row">
+            <BrandMark size={44} />
+            <h1>Care<span>Flow</span></h1>
+          </div>
+          <h2>Connected Healthcare. Simplified.</h2>
+          <p>Create a patient account to book appointments, request emergency help, and check blood availability.</p>
+          <ul className="auth-brand-points">
+            <li><span className="auth-point-dot" /> Personal health profile</li>
+            <li><span className="auth-point-dot" /> Appointment tracking</li>
+            <li><span className="auth-point-dot" /> Real-time notifications</li>
+          </ul>
         </div>
+      </aside>
 
-        <h2>Create Account</h2>
+      <div className="auth-form-panel">
+        <div className="auth-card">
+          <div className="auth-header mobile-only">
+            <h1>Care<span>Flow</span></h1>
+            <p className="auth-subtitle">Healthcare Management Platform</p>
+          </div>
 
-        {error && <div className="auth-error">{error}</div>}
-        {success && <div className="auth-success">{success}</div>}
+          <h2>Create Account</h2>
 
-        <form onSubmit={handleSubmit} className="auth-form">
-          <label htmlFor="fullName">Full Name *</label>
-          <input
-            id="fullName"
-            name="fullName"
-            type="text"
-            value={form.fullName}
-            onChange={handleChange}
-            placeholder="John Doe"
-            required
-          />
+          {error && <div className="auth-error">{error}</div>}
+          {success && <div className="auth-success">{success}</div>}
 
-          <label htmlFor="email">Email *</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="you@example.com"
-            autoComplete="email"
-            required
-          />
+          <form onSubmit={handleSubmit} className="auth-form">
+            <label htmlFor="fullName">Full Name *</label>
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              value={form.fullName}
+              onChange={handleChange}
+              placeholder="John Doe"
+              required
+            />
 
-          <label htmlFor="phone">Phone</label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            value={form.phone}
-            onChange={handleChange}
-            placeholder="+91-9000000000"
-          />
+            <label htmlFor="email">Email *</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              autoComplete="email"
+              required
+            />
 
-          <label htmlFor="bloodGroup">Blood Group</label>
-          <select
-            id="bloodGroup"
-            name="bloodGroup"
-            value={form.bloodGroup}
-            onChange={handleChange}
-          >
-            <option value="">— Select —</option>
-            {BLOOD_GROUPS.map((bg) => (
-              <option key={bg} value={bg}>{bg}</option>
-            ))}
-          </select>
+            <label htmlFor="phone">Phone</label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="+91-9000000000"
+            />
 
-          <label htmlFor="password">Password *</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={form.password}
-            onChange={handleChange}
-            placeholder="••••••••"
-            autoComplete="new-password"
-            required
-          />
+            <label htmlFor="bloodGroup">Blood Group</label>
+            <select
+              id="bloodGroup"
+              name="bloodGroup"
+              value={form.bloodGroup}
+              onChange={handleChange}
+            >
+              <option value="">— Select —</option>
+              {BLOOD_GROUPS.map((bg) => (
+                <option key={bg} value={bg}>{bg}</option>
+              ))}
+            </select>
 
-          <label htmlFor="confirmPassword">Confirm Password *</label>
-          <input
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            value={form.confirmPassword}
-            onChange={handleChange}
-            placeholder="••••••••"
-            autoComplete="new-password"
-            required
-          />
+            <label htmlFor="password">Password *</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={form.password}
+              onChange={handleChange}
+              placeholder="••••••••"
+              autoComplete="new-password"
+              required
+            />
 
-          <button type="submit" className="auth-btn" disabled={loading}>
-            {loading ? 'Creating account…' : 'Create Account'}
-          </button>
-        </form>
+            <label htmlFor="confirmPassword">Confirm Password *</label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              value={form.confirmPassword}
+              onChange={handleChange}
+              placeholder="••••••••"
+              autoComplete="new-password"
+              required
+            />
 
-        <p className="auth-footer">
-          Already have an account? <Link to="/login">Sign in</Link>
-        </p>
+            <button type="submit" className="auth-btn" disabled={loading}>
+              {loading ? 'Creating account…' : 'Create Account'}
+            </button>
+          </form>
+
+          <p className="auth-footer">
+            Already have an account? <Link to="/login">Sign in</Link>
+          </p>
+        </div>
       </div>
     </div>
   )

@@ -101,25 +101,25 @@ export default function AdminEmergency() {
                 <tr key={r.id}>
                   <td>
                     <div className="td-name">{r.profiles?.full_name || '—'}</div>
-                    <div style={{ fontSize: '0.72rem', color: '#3a5060' }}>{r.emergency_contact || r.profiles?.phone || ''}</div>
+                    <div className="td-sub">{r.emergency_contact || r.profiles?.phone || ''}</div>
                   </td>
                   <td style={{ maxWidth: '160px' }}>{r.pickup_location}</td>
                   <td>{r.request_type || '—'}</td>
                   <td style={{ fontSize: '0.78rem' }}>
-                    {r.driver_name ? <><div>{r.driver_name}</div><div style={{ color: '#3a5060' }}>{r.ambulance_id} · {r.driver_phone}</div></> : '—'}
+                    {r.driver_name ? <><div>{r.driver_name}</div><div className="td-sub">{r.ambulance_id} · {r.driver_phone}</div></> : '—'}
                   </td>
                   <td><span className={`status-badge status-${r.status}`}>{r.status.replace('_', ' ')}</span></td>
                   <td style={{ whiteSpace: 'nowrap', fontSize: '0.75rem' }}>{timeAgo(r.requested_at)}</td>
                   <td>
-                    {updating === r.id ? <span style={{ color: '#4fc3f7', fontSize: '0.75rem' }}>…</span> : (
+                    {updating === r.id ? <span className="updating-text">Updating…</span> : (
                       <div className="action-row">
                         {NEXT_STATUS[r.status] && (
-                          <button className="btn-primary" style={{ fontSize: '0.7rem', padding: '0.3rem 0.65rem' }} onClick={() => advance(r)}>
+                          <button className="btn-primary btn-sm" onClick={() => advance(r)}>
                             {r.status === 'REQUESTED' ? 'Assign' : `→ ${NEXT_STATUS[r.status].replace('_', ' ')}`}
                           </button>
                         )}
                         {!['COMPLETED', 'CANCELLED'].includes(r.status) && (
-                          <button className="btn-danger" style={{ fontSize: '0.7rem', padding: '0.3rem 0.65rem' }} onClick={() => cancel(r)}>Cancel</button>
+                          <button className="btn-danger btn-sm" onClick={() => cancel(r)}>Cancel</button>
                         )}
                       </div>
                     )}
@@ -135,7 +135,7 @@ export default function AdminEmergency() {
         <div className="modal-backdrop" onClick={e => e.target === e.currentTarget && setAssignModal(null)}>
           <div className="modal">
             <h3>Assign Ambulance</h3>
-            <p style={{ fontSize: '0.82rem', color: '#5a7a90', marginBottom: '1rem' }}>Patient: <strong style={{ color: '#c8dcea' }}>{assignModal.profiles?.full_name}</strong> · {assignModal.pickup_location}</p>
+            <p className="modal-lead">Patient: <strong>{assignModal.profiles?.full_name}</strong> · {assignModal.pickup_location}</p>
             <form onSubmit={handleAssign}>
               <div className="profile-form-grid">
                 <div className="form-group">

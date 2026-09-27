@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
-import { FACILITY_EMOJI } from '../../lib/utils'
 
 const TYPES = ['HOSPITAL', 'CLINIC', 'DIAGNOSTIC_CENTER', 'BLOOD_BANK']
 const BLANK = { name: '', type: 'HOSPITAL', address: '', phone: '', operating_hours: '', emergency_available: false }
@@ -57,9 +56,9 @@ export default function AdminFacilities() {
 
   return (
     <>
-      <div className="page-header" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+      <div className="page-header with-action">
         <div><h2>Facilities</h2><p>Manage healthcare facilities on the platform</p></div>
-        <button className="btn-primary" onClick={openAdd}>+ Add Facility</button>
+        <button className="btn-primary" onClick={openAdd}>Add Facility</button>
       </div>
 
       <div className="filter-bar">
@@ -75,16 +74,16 @@ export default function AdminFacilities() {
             <tbody>
               {displayed.map(f => (
                 <tr key={f.id}>
-                  <td className="td-name">{FACILITY_EMOJI[f.type]} {f.name}</td>
-                  <td><span className="status-badge" style={{ background: 'rgba(79,195,247,0.08)', color: '#4fc3f7', border: '1px solid rgba(79,195,247,0.2)' }}>{f.type.replace('_', ' ')}</span></td>
-                  <td style={{ fontSize: '0.78rem', maxWidth: '150px' }}>{f.address}</td>
-                  <td style={{ fontSize: '0.78rem' }}>{f.phone || '—'}</td>
-                  <td style={{ fontSize: '0.78rem' }}>{f.operating_hours || '—'}</td>
-                  <td>{f.emergency_available ? <span className="facility-emergency">Yes</span> : <span style={{ color: '#2e4050', fontSize: '0.75rem' }}>No</span>}</td>
+                  <td className="td-name">{f.name}</td>
+                  <td><span className="type-badge">{f.type.replace('_', ' ')}</span></td>
+                  <td>{f.address}</td>
+                  <td>{f.phone || '—'}</td>
+                  <td>{f.operating_hours || '—'}</td>
+                  <td>{f.emergency_available ? <span className="facility-emergency">Yes</span> : <span className="muted">No</span>}</td>
                   <td>
                     <div className="action-row">
-                      <button className="btn-secondary" style={{ fontSize: '0.7rem', padding: '0.3rem 0.65rem' }} onClick={() => openEdit(f)}>Edit</button>
-                      <button className="btn-danger" style={{ fontSize: '0.7rem', padding: '0.3rem 0.65rem' }} onClick={() => handleDelete(f.id)}>Delete</button>
+                      <button className="btn-secondary btn-sm" onClick={() => openEdit(f)}>Edit</button>
+                      <button className="btn-danger btn-sm" onClick={() => handleDelete(f.id)}>Delete</button>
                     </div>
                   </td>
                 </tr>

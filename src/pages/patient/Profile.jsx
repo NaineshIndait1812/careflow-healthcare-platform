@@ -118,12 +118,7 @@ export default function Profile() {
               Member since {formatMemberSince(profile.created_at)}
             </div>
           )}
-          <div style={{ marginTop: '0.75rem', width: '100%' }}>
-            <div style={{ fontSize: '0.7rem', color: '#2e4050', textAlign: 'center', padding: '0.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '7px', border: '1px solid rgba(255,255,255,0.06)' }}>
-              <strong style={{ color: '#3a5060' }}>Role:</strong>{' '}
-              <span style={{ color: '#4a6070' }}>Patient</span>
-            </div>
-          </div>
+          <div className="profile-role-chip">Role: Patient</div>
         </div>
 
         {/* ── Right: Edit form ── */}

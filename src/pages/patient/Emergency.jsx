@@ -91,21 +91,21 @@ export default function Emergency() {
               <p>Request an ambulance immediately — our team will coordinate dispatch.</p>
             </div>
           </div>
-          <button className="btn-emergency" onClick={() => setShowForm(true)}>🚑 Request Ambulance</button>
+          <button className="btn-emergency" onClick={() => setShowForm(true)}>Request Ambulance</button>
         </div>
       )}
 
       {successMsg && (
-        <div style={{ background: 'rgba(102,187,106,0.1)', border: '1px solid rgba(102,187,106,0.3)', borderRadius: '10px', padding: '0.85rem 1.1rem', marginBottom: '1.25rem', color: '#66bb6a', fontSize: '0.875rem' }}>
-          ✓ {successMsg}
+        <div className="alert-success">
+          {successMsg}
         </div>
       )}
 
       {/* Active request tracker */}
       {activeRequest && (
-        <div className="card" style={{ marginBottom: '1.25rem', borderColor: 'rgba(239,83,80,0.3)' }}>
+        <div className="card active-emergency" style={{ marginBottom: '1.25rem' }}>
           <div className="card-header">
-            <h3 className="card-title">🚑 Active Request</h3>
+            <h3 className="card-title">Active Request</h3>
             <StatusBadge status={activeRequest.status} />
           </div>
           <div className="profile-summary-grid">
@@ -136,17 +136,17 @@ export default function Emergency() {
               </div>
             )}
           </div>
-          {/* Progress steps */}
-          <div style={{ display: 'flex', gap: '0.4rem', marginTop: '1rem', flexWrap: 'wrap' }}>
-            {['REQUESTED', 'ASSIGNED', 'ON_THE_WAY', 'ARRIVED', 'COMPLETED'].map((s, i) => {
+          {/* Progress steps — VISUAL-ONLY ADDITION: replaced inline styles with .status-stepper classes */}
+          <div className="status-stepper">
+            {['REQUESTED', 'ASSIGNED', 'ON_THE_WAY', 'ARRIVED', 'COMPLETED'].map((s) => {
               const idx = STATUS_ORDER.indexOf(activeRequest.status)
               const sIdx = STATUS_ORDER.indexOf(s)
-              const done = sIdx <= idx
+              const done = sIdx < idx
+              const active = sIdx === idx
               return (
-                <div key={s} style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: done ? '#4fc3f7' : '#1a2e3e', border: '1px solid', borderColor: done ? '#4fc3f7' : '#2a3e4e' }} />
-                  <span style={{ fontSize: '0.68rem', color: done ? '#4fc3f7' : '#2a3e4e', fontWeight: done ? 600 : 400 }}>{s.replace('_', ' ')}</span>
-                  {i < 4 && <span style={{ color: '#1a2e3e', fontSize: '0.65rem' }}>→</span>}
+                <div key={s} className={`stepper-step${done ? ' done' : ''}${active ? ' active' : ''}`}>
+                  <div className="stepper-dot" />
+                  <span className="stepper-label">{s.replace(/_/g, ' ')}</span>
                 </div>
               )
             })}
@@ -158,7 +158,7 @@ export default function Emergency() {
       <div className="card">
         <div className="card-header">
           <h3 className="card-title">Recent Requests</h3>
-          {activeRequest && <button className="btn-emergency" style={{ fontSize: '0.75rem', padding: '0.3rem 0.75rem' }} onClick={() => setShowForm(true)}>+ New Request</button>}
+          {activeRequest && <button className="btn-emergency btn-sm" onClick={() => setShowForm(true)}>New Request</button>}
         </div>
         {loading && <div className="skeleton-line full" />}
         {!loading && requests.length === 0 && (
@@ -187,7 +187,7 @@ export default function Emergency() {
       {showForm && (
         <div className="modal-backdrop" onClick={e => e.target === e.currentTarget && setShowForm(false)}>
           <div className="modal">
-            <h3>🚑 Request Ambulance</h3>
+            <h3>Request Ambulance</h3>
             {formError && <div className="data-error" style={{ marginBottom: '1rem' }}>{formError}</div>}
             <form onSubmit={handleSubmit}>
               <div className="profile-form-grid">
@@ -207,8 +207,8 @@ export default function Emergency() {
                   </select>
                 </div>
               </div>
-              <div style={{ background: 'rgba(239,83,80,0.06)', border: '1px solid rgba(239,83,80,0.2)', borderRadius: '8px', padding: '0.75rem', marginTop: '0.75rem', fontSize: '0.78rem', color: '#ef9a9a' }}>
-                ⚠️ For life-threatening emergencies, also call national emergency services (112).
+              <div className="alert-emergency-note">
+                For life-threatening emergencies, also call national emergency services (112).
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-ghost" onClick={() => setShowForm(false)}>Cancel</button>

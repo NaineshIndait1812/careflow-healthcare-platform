@@ -29,7 +29,7 @@ export default function AdminPatients() {
 
       <div className="filter-bar">
         <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by name, email, or phone…" style={{ flex: 1 }} />
-        <span style={{ fontSize: '0.78rem', color: '#3a5060' }}>{displayed.length} patient{displayed.length !== 1 ? 's' : ''}</span>
+        <span className="filter-count">{displayed.length} patient{displayed.length !== 1 ? 's' : ''}</span>
       </div>
 
       <div className="card">
@@ -44,11 +44,11 @@ export default function AdminPatients() {
               {displayed.map(p => (
                 <tr key={p.id}>
                   <td className="td-name">{p.full_name || '—'}</td>
-                  <td style={{ fontSize: '0.78rem' }}>{p.email || '—'}</td>
-                  <td style={{ fontSize: '0.78rem' }}>{p.phone || '—'}</td>
-                  <td>{p.blood_group ? <span className="blood-badge">{p.blood_group}</span> : <span style={{ color: '#2e4050' }}>—</span>}</td>
-                  <td style={{ fontSize: '0.78rem', maxWidth: '140px' }}>{p.emergency_contact || '—'}</td>
-                  <td style={{ fontSize: '0.72rem', color: '#3a5060' }}>
+                  <td>{p.email || '—'}</td>
+                  <td>{p.phone || '—'}</td>
+                  <td>{p.blood_group ? <span className="blood-badge">{p.blood_group}</span> : <span className="muted">—</span>}</td>
+                  <td>{p.emergency_contact || '—'}</td>
+                  <td className="td-sub">
                     {p.created_at ? new Date(p.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'}
                   </td>
                 </tr>

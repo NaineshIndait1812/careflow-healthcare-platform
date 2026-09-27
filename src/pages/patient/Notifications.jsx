@@ -40,13 +40,13 @@ export default function Notifications() {
 
   return (
     <>
-      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div className="page-header with-action">
         <div>
-          <h2>Notifications {unreadCount > 0 && <span style={{ fontSize: '0.9rem', color: '#4fc3f7' }}>({unreadCount} unread)</span>}</h2>
+          <h2>Notifications {unreadCount > 0 && <span className="unread-count">({unreadCount} unread)</span>}</h2>
           <p>Your appointment updates and alerts</p>
         </div>
         {unreadCount > 0 && (
-          <button className="btn-secondary" onClick={markAllRead} style={{ marginTop: '0.25rem' }}>Mark all read</button>
+          <button className="btn-secondary" onClick={markAllRead}>Mark all read</button>
         )}
       </div>
 
@@ -67,7 +67,7 @@ export default function Notifications() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '0.25rem' }}>
                   <span className="notification-time">{timeAgo(n.created_at)}</span>
                   {!n.read && (
-                    <button className="mark-read-btn" style={{ background: 'none', border: 'none', color: '#4fc3f7', fontSize: '0.7rem', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => markRead(n.id)}>Mark read</button>
+                    <button className="mark-read-btn" onClick={() => markRead(n.id)}>Mark read</button>
                   )}
                 </div>
               </div>

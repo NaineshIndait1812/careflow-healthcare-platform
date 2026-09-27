@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import BrandMark from './BrandMark'
 import '../styles/patient.css'
 
 // ── SVG icons (inline, no extra dependencies) ──────────────────────────────
@@ -107,7 +108,7 @@ function IconX() {
 const NAV_ITEMS = [
   { to: '/patient',              label: 'Dashboard',       icon: <IconHome />,       end: true },
   { to: '/patient/appointments', label: 'Appointments',    icon: <IconCalendar /> },
-  { to: '/patient/emergency',    label: 'Emergency',       icon: <IconAmbulance /> },
+  { to: '/patient/emergency',    label: 'Emergency',       icon: <IconAmbulance />, emergency: true },
   { to: '/patient/blood',        label: 'Blood Availability', icon: <IconDroplet /> },
   { to: '/patient/facilities',   label: 'Facilities',      icon: <IconMapPin /> },
   { to: '/patient/notifications',label: 'Notifications',   icon: <IconBell /> },
@@ -137,7 +138,10 @@ export default function PatientLayout() {
     <div className="patient-shell">
       {/* ── Mobile top bar ── */}
       <div className="mobile-topbar">
-        <h1>CareFlow</h1>
+        <div className="mobile-topbar-brand">
+          <BrandMark size={28} />
+          <h1>Care<span>Flow</span></h1>
+        </div>
         <button
           className="mobile-menu-btn"
           onClick={() => setSidebarOpen((o) => !o)}
@@ -157,18 +161,21 @@ export default function PatientLayout() {
       {/* ── Sidebar ── */}
       <aside className={`sidebar${sidebarOpen ? ' open' : ''}`} aria-label="Patient navigation">
         <div className="sidebar-logo">
-          <h1>CareFlow</h1>
-          <span>Patient Portal</span>
+          <div className="sidebar-logo-icon"><BrandMark size={22} /></div>
+          <div className="sidebar-logo-text">
+            <h1>Care<span>Flow</span></h1>
+            <small>Patient Portal</small>
+          </div>
         </div>
 
         <nav className="sidebar-nav" aria-label="Main navigation">
           <p className="nav-section-label">Navigation</p>
-          {NAV_ITEMS.map(({ to, label, icon, end }) => (
+          {NAV_ITEMS.map(({ to, label, icon, end, emergency }) => (
             <NavLink
               key={to}
               to={to}
               end={end}
-              className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+              className={({ isActive }) => `nav-link${emergency ? ' nav-emergency' : ''}${isActive ? ' active' : ''}`}
               onClick={closeSidebar}
             >
               {icon}

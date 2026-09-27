@@ -61,20 +61,20 @@ export default function Facilities() {
 
       {!loading && !error && filtered.map(f => (
         <div className="card" key={f.id} style={{ marginBottom: '0.85rem' }}>
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-            <div className={`facility-icon ${f.type}`} style={{ width: '42px', height: '42px', fontSize: '1.2rem', flexShrink: 0 }}>
-              {FACILITY_EMOJI[f.type] || '🏢'}
+          <div className="facility-card">
+            <div className={`facility-icon ${f.type}`}>
+              {FACILITY_EMOJI[f.type] || '•'}
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
-                <span style={{ fontWeight: 600, color: '#c8dcea', fontSize: '0.95rem' }}>{f.name}</span>
-                <span className="status-badge" style={{ background: 'rgba(79,195,247,0.08)', color: '#4fc3f7', border: '1px solid rgba(79,195,247,0.2)' }}>{f.type.replace('_', ' ')}</span>
-                {f.emergency_available && <span className="facility-emergency">24/7 Emergency</span>}
+              <div className="facility-card-title">
+                <strong>{f.name}</strong>
+                <span className="type-badge">{f.type.replace('_', ' ')}</span>
+                {f.emergency_available && <span className="facility-emergency">Emergency Available</span>}
               </div>
-              <div style={{ fontSize: '0.82rem', color: '#4a6070', marginTop: '0.4rem', display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                <span>📍 {f.address}</span>
-                {f.phone && <span>📞 {f.phone}</span>}
-                {f.operating_hours && <span>🕐 {f.operating_hours}</span>}
+              <div className="facility-card-meta">
+                <span>{f.address}</span>
+                {f.phone && <span>{f.phone}</span>}
+                {f.operating_hours && <span>{f.operating_hours}</span>}
               </div>
             </div>
           </div>

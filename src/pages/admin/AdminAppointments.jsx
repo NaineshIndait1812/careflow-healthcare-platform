@@ -53,14 +53,14 @@ export default function AdminAppointments() {
   const actions = (appt) => {
     if (appt.status === 'PENDING') return (
       <div className="action-row">
-        <button className="btn-primary" style={{ fontSize: '0.72rem', padding: '0.3rem 0.7rem' }} disabled={updating === appt.id} onClick={() => update(appt, 'CONFIRMED')}>Confirm</button>
-        <button className="btn-danger" style={{ fontSize: '0.72rem', padding: '0.3rem 0.7rem' }} disabled={updating === appt.id} onClick={() => update(appt, 'CANCELLED')}>Cancel</button>
+        <button className="btn-primary btn-sm" disabled={updating === appt.id} onClick={() => update(appt, 'CONFIRMED')}>Confirm</button>
+        <button className="btn-danger btn-sm" disabled={updating === appt.id} onClick={() => update(appt, 'CANCELLED')}>Cancel</button>
       </div>
     )
     if (appt.status === 'CONFIRMED') return (
       <div className="action-row">
-        <button className="btn-secondary" style={{ fontSize: '0.72rem', padding: '0.3rem 0.7rem' }} disabled={updating === appt.id} onClick={() => update(appt, 'COMPLETED')}>Complete</button>
-        <button className="btn-danger" style={{ fontSize: '0.72rem', padding: '0.3rem 0.7rem' }} disabled={updating === appt.id} onClick={() => update(appt, 'CANCELLED')}>Cancel</button>
+        <button className="btn-secondary btn-sm" disabled={updating === appt.id} onClick={() => update(appt, 'COMPLETED')}>Complete</button>
+        <button className="btn-danger btn-sm" disabled={updating === appt.id} onClick={() => update(appt, 'CANCELLED')}>Cancel</button>
       </div>
     )
     return <Badge s={appt.status} />
@@ -93,16 +93,16 @@ export default function AdminAppointments() {
                 <tr key={a.id}>
                   <td>
                     <div className="td-name">{a.profiles?.full_name || '—'}</div>
-                    <div style={{ fontSize: '0.72rem', color: '#3a5060' }}>{a.profiles?.email}</div>
+                    <div className="td-sub">{a.profiles?.email}</div>
                   </td>
                   <td>{a.doctor_name}</td>
                   <td>{a.facilities?.name || '—'}</td>
                   <td style={{ whiteSpace: 'nowrap' }}>
                     {formatDate(a.appointment_date).full}<br />
-                    <span style={{ fontSize: '0.75rem', color: '#3a5060' }}>{formatTime(a.appointment_time)}</span>
+                    <span className="td-sub">{formatTime(a.appointment_time)}</span>
                   </td>
                   <td><Badge s={a.status} /></td>
-                  <td>{updating === a.id ? <span style={{ color: '#4fc3f7', fontSize: '0.75rem' }}>Updating…</span> : actions(a)}</td>
+                  <td>{updating === a.id ? <span className="updating-text">Updating…</span> : actions(a)}</td>
                 </tr>
               ))}
             </tbody>

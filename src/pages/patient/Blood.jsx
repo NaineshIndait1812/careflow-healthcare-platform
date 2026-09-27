@@ -47,7 +47,7 @@ export default function Blood() {
       <div className="card" style={{ marginBottom: '1.25rem' }}>
         <div className="card-header" style={{ marginBottom: '0.75rem' }}>
           <h3 className="card-title">Filter by Blood Group</h3>
-          {selected && <button className="btn-ghost" style={{ fontSize: '0.75rem', padding: '0.3rem 0.6rem' }} onClick={() => { setSelected(''); search('') }}>Clear filter</button>}
+          {selected && <button className="btn-ghost btn-sm" onClick={() => { setSelected(''); search('') }}>Clear filter</button>}
         </div>
         <div className="blood-groups-grid">
           {BLOOD_GROUPS.map(bg => (
@@ -72,8 +72,8 @@ export default function Blood() {
         <div className="blood-result-card" key={bank.id}>
           <div className="blood-result-header">
             <div>
-              <div className="blood-result-name">🩸 {bank.name}</div>
-              <div className="blood-result-meta">📍 {bank.location} · 📞 {bank.phone || 'N/A'} · 🕐 {bank.operating_hours || 'N/A'}</div>
+              <div className="blood-result-name">{bank.name}</div>
+              <div className="blood-result-meta">{bank.location} · {bank.phone || 'N/A'} · {bank.operating_hours || 'N/A'}</div>
             </div>
           </div>
           <div className="blood-units-row">

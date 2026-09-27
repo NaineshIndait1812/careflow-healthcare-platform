@@ -1,47 +1,136 @@
+/* ============================================================
+   CareFlow — Global Reset & Design Tokens
+   Theme: White-first Medical Professional
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 :root {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #e8edf3;
-  background: #0f2027;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color-scheme: light;
+
+  /* ── Medical Green (Primary) ── */
+  --green-primary:   #16A34A;
+  --green-dark:      #15803D;
+  --green-light:     #DCFCE7;
+  --green-xlight:    #F0FDF4;
+  --green-ring:      rgba(22,163,74,0.2);
+
+  /* ── Medical Red (Emergency only) ── */
+  --red-danger:      #DC2626;
+  --red-dark:        #B91C1C;
+  --red-light:       #FEE2E2;
+  --red-xlight:      #FEF2F2;
+
+  /* ── Accent Teal/Blue ── */
+  --teal-primary:    #0F766E;
+  --teal-light:      #CCFBF1;
+  --blue-primary:    #2563EB;
+  --blue-light:      #DBEAFE;
+
+  /* ── Amber (Warning) ── */
+  --amber-primary:   #D97706;
+  --amber-light:     #FEF3C7;
+
+  /* ── Neutrals ── */
+  --bg-root:         #F8FAFC;
+  --bg-page:         #F8FAFC;
+  --bg-sidebar:      #FFFFFF;
+  --bg-card:         #FFFFFF;
+  --bg-input:        #FFFFFF;
+  --bg-hover:        #F1F5F9;
+  --bg-modal:        #FFFFFF;
+
+  /* ── Text ── */
+  --text-primary:    #0F172A;
+  --text-secondary:  #475569;
+  --text-muted:      #64748B;
+  --text-placeholder:#94A3B8;
+
+  /* ── Borders ── */
+  --border:          #E2E8F0;
+  --border-focus:    #16A34A;
+
+  /* ── Shadows ── */
+  --shadow-xs:  0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:  0 10px 15px rgba(0,0,0,0.06), 0 4px 6px rgba(0,0,0,0.04);
+  --shadow-xl:  0 20px 25px rgba(0,0,0,0.08), 0 8px 10px rgba(0,0,0,0.04);
+
+  /* ── Radii ── */
+  --r-xs:   4px;
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   20px;
+  --r-full: 999px;
+
+  /* ── Transitions ── */
+  --ease-fast: 0.12s cubic-bezier(0.4,0,0.2,1);
+  --ease-base: 0.2s cubic-bezier(0.4,0,0.2,1);
+
+  /* ── Legacy aliases (keep for any remaining references) ── */
+  --teal-400:    #2dd4bf;
+  --teal-500:    #14b8a6;
+  --teal-600:    #0d9488;
+  --blue-400:    #38bdf8;
+  --blue-500:    #0ea5e9;
+  --rose-400:    #fb7185;
+  --rose-500:    #f43f5e;
+  --green-400:   #34d399;
+  --green-500:   #10b981;
+  --amber-400:   #fbbf24;
+  --amber-500:   #f59e0b;
+  --purple-400:  #a78bfa;
+  --text-100:    #0F172A;
+  --text-200:    #334155;
+  --text-300:    #475569;
+  --text-400:    #64748B;
+  --text-500:    #94A3B8;
+  --border-100:  #E2E8F0;
+  --border-200:  #F1F5F9;
+  --bg-card-2:   #F8FAFC;
+  --shadow-teal: 0 4px 12px rgba(22,163,74,0.15);
 }
 
-* {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
-  background: #0f2027;
+  background: var(--bg-root);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #0f2027;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
 }
 
-#root {
+#root { 
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
-a {
-  color: inherit;
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ── Responsive Typography ── */
+@media (max-width: 768px) {
+  html { font-size: 15px; }
 }
 
-button,
-input,
-select {
-  font: inherit;
+@media (max-width: 480px) {
+  html { font-size: 14px; }
 }
-
-img {
-  max-width: 100%;
-  display: block;
-}
-

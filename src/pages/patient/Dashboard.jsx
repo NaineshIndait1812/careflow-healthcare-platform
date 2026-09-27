@@ -86,22 +86,6 @@ function IconMapPin() {
   )
 }
 
-function IconPlus() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-    </svg>
-  )
-}
-
-function IconArrow() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-    </svg>
-  )
-}
-
 // ── Skeleton loader ───────────────────────────────────────────────────────────
 
 function CardSkeleton() {
@@ -431,8 +415,8 @@ export default function Dashboard() {
       {/* Greeting */}
       <div className="greeting-banner">
         <div className="greeting-text">
-          <h3>{getGreeting()}, {firstName} 👋</h3>
-          <p>Here's an overview of your health activity.</p>
+          <h3>{getGreeting()}, {firstName}</h3>
+          <p>Here's an overview of your healthcare activity.</p>
         </div>
         <span className="greeting-badge">Patient</span>
       </div>
@@ -441,7 +425,7 @@ export default function Dashboard() {
       <p className="section-title">Quick Actions</p>
       <div className="quick-actions-grid">
         <Link to="/patient/appointments" className="quick-action-card">
-          <div className="qa-icon blue"><IconCalendar /></div>
+          <div className="qa-icon teal"><IconCalendar /></div>
           <span className="qa-label">Book Appointment</span>
           <span className="qa-desc">Schedule a visit with a doctor or clinic</span>
         </Link>
@@ -457,7 +441,7 @@ export default function Dashboard() {
         </Link>
 
         <Link to="/patient/blood" className="quick-action-card">
-          <div className="qa-icon amber"><IconDroplet /></div>
+          <div className="qa-icon red"><IconDroplet /></div>
           <span className="qa-label">Find Blood</span>
           <span className="qa-desc">Check blood availability near you</span>
         </Link>

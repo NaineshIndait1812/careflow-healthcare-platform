@@ -75,20 +75,20 @@ export default function AdminBlood() {
                       {isEditing ? (
                         <input type="number" min="0" value={editing.units}
                           onChange={e => setEditing(p => ({ ...p, units: e.target.value }))}
-                          style={{ width: '80px', padding: '0.3rem 0.5rem', borderRadius: '6px', border: '1px solid #4fc3f7', background: 'rgba(79,195,247,0.07)', color: '#e2eaf3', fontSize: '0.85rem' }}
+                          className="inventory-input"
                         />
                       ) : (
-                        <span style={{ color: row.units_available === 0 ? '#ef9a9a' : row.units_available <= 3 ? '#ffa726' : '#66bb6a', fontWeight: 600 }}>{row.units_available}</span>
+                        <span className={row.units_available === 0 ? 'units-none' : row.units_available <= 3 ? 'units-low' : 'units-ok'}>{row.units_available}</span>
                       )}
                     </td>
                     <td>
                       {isEditing ? (
                         <div className="action-row">
-                          <button className="btn-primary" style={{ fontSize: '0.7rem', padding: '0.3rem 0.65rem' }} disabled={saving} onClick={saveEdit}>{saving ? '…' : 'Save'}</button>
-                          <button className="btn-ghost" style={{ fontSize: '0.7rem', padding: '0.3rem 0.65rem' }} onClick={cancelEdit}>Cancel</button>
+                          <button className="btn-primary btn-sm" disabled={saving} onClick={saveEdit}>{saving ? '…' : 'Save'}</button>
+                          <button className="btn-ghost btn-sm" onClick={cancelEdit}>Cancel</button>
                         </div>
                       ) : (
-                        <button className="btn-secondary" style={{ fontSize: '0.7rem', padding: '0.3rem 0.65rem' }} onClick={() => startEdit(row)}>Edit</button>
+                        <button className="btn-secondary btn-sm" onClick={() => startEdit(row)}>Edit</button>
                       )}
                     </td>
                   </tr>
