@@ -1,5 +1,9 @@
 import { useState } from 'react'
+import { supabase } from './lib/supabase'
 import heroImg from './assets/hero.png'
+
+// Temporary Supabase connection check — remove before production
+console.log('Supabase client initialized:', !!supabase)
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
